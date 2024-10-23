@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MP3 Player</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+      }
+      #mp3-list {
+        list-style-type: none;
+        padding: 0;
+      }
+      #mp3-list li {
+        cursor: pointer;
+        padding: 5px;
+        background-color: #f0f0f0;
+        margin: 5px 0;
+        border-radius: 5px;
+      }
+      #mp3-list li:hover {
+        background-color: #e0e0e0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>MP3 Player</h1>
+    <ul id="mp3-list"></ul>
+    <audio id="audio-player" controls></audio>
+
+    <script>
+      let mp3List = [];
+      let currentTrack = 0;
+      const audioPlayer = document.getElementById("audio-player");
+
+      // Fetch the mp3 list from the server
+      fetch("/mp3-list")
+        .then((response) => response.json())
+        .then((files) => {
+          mp3List = files;
+          const mp3ListElement = document.getElementById("mp3-list");
+
+          files.forEach((file, index) => {
+            const li = document.createElement("li");
+            li.textContent = file;
+            li.addEventListener("click", () => playTrack(index));
+            mp3ListElement.appendChild(li);
+          });
+
+          // Start by playing the first track
+          if (mp3List.length > 0) {
+            playTrack(0);
+          }
+        });
+
+      function playTrack(index) {
+        currentTrack = index;
+        audioPlayer.src = `/downloads/${mp3List[currentTrack]}`;
+        audioPlayer.play();
+      }
+
+      // Play the next track when the current one ends
+      audioPlayer.addEventListener("ended", () => {
+        currentTrack = (currentTrack + 1) % mp3List.length;
+        playTrack(currentTrack);
+      });
+    </script>
+  </body>
+</html>

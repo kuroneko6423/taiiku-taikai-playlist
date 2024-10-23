@@ -1,0 +1,28 @@
+{
+  "name": "taiiku-taikai-playlist",
+  "version": "1.0.0",
+  "description": "- Nodejs (https://nodejs.org/en/)\r - FFmpeg (https://www.ffmpeg.org/)\r - yt-dlp (https://github.com/yt-dlp/yt-dlp)",
+  "main": "playlst-get.js",
+  "scripts": {
+    "get-list": "node playlist-get.js",
+    "download": "node music-download.js",
+    "start": "node server.js"
+  },
+  "author": "kuroneko6423",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "child_process": "^1.0.2",
+    "dotenv": "^16.4.5",
+    "exceljs": "^4.4.0",
+    "express": "^4.21.1",
+    "fluent-ffmpeg": "^2.1.3",
+    "fs": "^0.0.1-security",
+    "googleapis": "^144.0.0",
+    "path": "^0.12.7",
+    "readline": "^1.3.0",
+    "spotify-web-api-node": "^5.0.2",
+    "ytdl-core": "^4.11.5",
+    "ytpl": "^2.3.0"
+  }
+}
